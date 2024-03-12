@@ -1,0 +1,38 @@
+Your task is to design and implement a custom web dashboard that leverages the provided dataset to present insightful visualisations. Additionally, integrate an NLP (Natural Language Processing) chatbot within the dashboard to enable interactive data queries through natural language inputs.
+
+Development Requirements:
+
+1.     Web Dashboard Development:
+Utilise web technologies (HTML, CSS, JavaScript) and any preferred visualisation libraries (e.g., D3.js, Chart.js, Leaflet for maps) to create a dynamic and interactive dashboard.
+The dashboard should include:
+"Top 10 Brokers" performance tables categorised by Gross Written Premium (GWP) for Open Market, Facilities, and Combined, with a new column showing the difference between actual and planned GWP as a percentage of planned GWP.
+Graphical representations that correlate with the data presented in the brokers' tables.
+A Business Class Analysis section displaying Planned Premium, Earned Premium, and GWP for various business classes, with functionality to drill down into 'class type' within each 'class of business'.
+
+2.     NLP Chatbot Integration:
+Develop an NLP chatbot that utilises the OpenAI API to process and respond to user queries about the dashboard data.
+The chatbot should be capable of answering queries such as "Which broker had the most increase in GWP in 2022?" and provide interactive responses based on the dashboard’s data.
+Ensure the chatbot interaction is seamlessly integrated into the web dashboard for a cohesive user experience.
+
+3.     Interactivity and User Experience:
+Implement interactive elements and features (e.g., filters, dropdowns) that allow users to customise the data view, particularly a filter for selecting the desired year which affects all dashboard visuals.
+Design the dashboard to be user-friendly, with a clear and aesthetically pleasing layout, ensuring all components are organised cohesively.
+ 
+
+Design Guidelines:
+Aim for a clean and intuitive design that enhances data readability and user engagement.
+The dashboard and chatbot interface should be responsive, catering to different device sizes for accessibility.
+ 
+Submission Requirements:
+You have 10 days from the receipt of this email to complete this assignment
+Download the dataset named “ 2024 Dashboard Data.xlsx﻿” from the assessment question within the portal and start working on the assignment offline on your local machine
+Once you are ready, email the following items to careers@leadenhallanalytics.com, with the subject formatted as "Your Full Name | Data Scientist | Dashboard Exercise"
+Screenshot of the dashboard
+Source code for the dashboard and chatbot integration, including any documentation on the libraries or APIs used
+Your CV
+
+Evaluation Criteria:
+Aesthetics, accuracy and effectiveness of the data visualisations.
+Functionality and responsiveness of the NLP chatbot to user queries.
+Creativity and usability of the dashboard design.
+Technical proficiency in web development and integration of the chatbot.
