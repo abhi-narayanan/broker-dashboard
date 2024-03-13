@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
+import plotly.express as px
 
 # Set the app title and header
 st.set_page_config(page_title="Broker Dashboard", layout="wide")
@@ -61,4 +62,44 @@ with col2:
     st.plotly_chart(fig)
 
 # ----------------------------------------END OF SECTION-------------------------------------------------------------
-    
+
+year_filter_df = class_stats[class_stats['Year'] == year]
+
+business_class = year_filter_df.groupby('Class of Business').sum(numeric_only=True)
+business_class = business_class.reset_index()
+
+# Unique Business classesi
+unique_classes = class_stats['Class of Business'].unique().tolist()
+
+# fig_1 = go.Figure()
+# fig_1.add_trace(go.Bar(x=business_class['Class of Business'],
+#     y=business_class['GWP '],
+#     name='GWP',
+#     marker_color='indianred'))
+
+# fig_1.add_trace(go.Bar(x=business_class['Class of Business'],
+#     y=business_class['Earned Premium'],
+#     name='Earned Premium',
+#     marker_color='MediumPurple'))
+
+# fig_1.add_trace(go.Bar(x=business_class['Class of Business'],
+#     y=business_class['Business Plan'],
+#     name='Business Plan',
+#     marker_color='lightsalmon'))
+
+fig_1 = px.bar(business_class, x=business_class['Class of Business'], y=["Business Plan", 'Earned Premium', 'GWP '], title=f"Business Class Analysis", barmode='group', width=600, height=400)
+
+business_class = st.radio(label='Select Class of Business', options=unique_classes)
+
+col3, col4 = st.columns(2)
+
+with col3:
+    st.plotly_chart(fig_1)
+
+with col4:
+
+    dataframe = year_filter_df[year_filter_df['Class of Business']==business_class]
+
+    fig_2 = px.bar(dataframe, x="ClassType", y=["Business Plan", 'Earned Premium', 'GWP '], title=f"{business_class} Analysis", barmode='group', width=600, height=400)
+
+    st.plotly_chart(fig_2)
