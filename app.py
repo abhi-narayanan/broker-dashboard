@@ -1,8 +1,37 @@
+## Go through the readme file to know how to deploy the app on your local machine
+
 import streamlit as st
-import numpy as np
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
+import json
+from agent import query_agent, create_agent
+
+def decode_response(response: str) -> dict:
+    """This function converts the string response from the model to a dictionary object.
+
+    Args:
+        response (str): response from the model
+
+    Returns:
+        dict: dictionary with response data
+    """
+    return json.loads(response)
+
+def write_response(response_dict: dict):
+    """
+    Write a response from an agent to a Streamlit app.
+
+    Args:
+        response_dict: The response from the agent.
+
+    Returns:
+        None.
+    """
+
+    # Write the response as an answer.
+    st.write(response_dict["answer"])
+
 
 # Set the app title and header
 st.set_page_config(page_title="Broker Dashboard", layout="wide")
@@ -71,22 +100,6 @@ business_class = business_class.reset_index()
 # Unique Business classesi
 unique_classes = class_stats['Class of Business'].unique().tolist()
 
-# fig_1 = go.Figure()
-# fig_1.add_trace(go.Bar(x=business_class['Class of Business'],
-#     y=business_class['GWP '],
-#     name='GWP',
-#     marker_color='indianred'))
-
-# fig_1.add_trace(go.Bar(x=business_class['Class of Business'],
-#     y=business_class['Earned Premium'],
-#     name='Earned Premium',
-#     marker_color='MediumPurple'))
-
-# fig_1.add_trace(go.Bar(x=business_class['Class of Business'],
-#     y=business_class['Business Plan'],
-#     name='Business Plan',
-#     marker_color='lightsalmon'))
-
 fig_1 = px.bar(business_class, x=business_class['Class of Business'], y=["Business Plan", 'Earned Premium', 'GWP '], title=f"Business Class Analysis", barmode='group', width=600, height=400)
 
 business_class = st.radio(label='Select Class of Business', options=unique_classes)
@@ -103,3 +116,19 @@ with col4:
     fig_2 = px.bar(dataframe, x="ClassType", y=["Business Plan", 'Earned Premium', 'GWP '], title=f"{business_class} Analysis", barmode='group', width=600, height=400)
 
     st.plotly_chart(fig_2)
+
+
+query = st.text_area("Insert your query")
+
+if st.button("Submit Query", type="primary"):
+    # Create an agent from the CSV file.
+    agent = create_agent('2024 Dashboard Data.xlsx')
+
+    # Query the agent.
+    response = query_agent(agent=agent, query=query)
+
+    # Decode the response.
+    decoded_response = decode_response(response)
+
+    # Write the response to the Streamlit app.
+    write_response(decoded_response)
